@@ -30,8 +30,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public LocationClient mLocationClient;
-    public MapView mMapView = null;
-    private TextView positionText;
     private static final String TAG = "MainActivity";
     private MapView mapView;
     private BaiduMap baiduMap;
@@ -47,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mapView = findViewById(R.id.bmapView);
         baiduMap = mapView.getMap();
         baiduMap.setMyLocationEnabled(true);
-        positionText = (TextView) findViewById(R.id.position_text_view);
         List<String> permissionList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
@@ -75,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "latitude is " + location.getLatitude() + "\nlongitude is:" + location.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             baiduMap.animateMapStatus(update);
+            // zoomTo设置缩放级别，接收float型参数
             update = MapStatusUpdateFactory.zoomTo(16f);
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;
